@@ -1,0 +1,20 @@
+#!/usr/bin/expect
+
+set HOSTNAME [lindex $argv 0]
+set USERNAME [lindex $argv 1]
+set PASSWORD [lindex $argv 2]
+set IPADDRESS [lindex $argv 3]
+spawn ssh $HOSTNAME
+expect "Password: "
+send -- "$PASSWORD\r"
+expect "$USERNAME@$HOSTNAME> "
+send -- "configure private\r" 
+expect "$USERNAME@$HOSTNAME# "
+send -- "set policy-options prefix-list iq_sip-customers $IPADDRESS/32\r"
+expect "$USERNAME@$HOSTNAME# "
+send -- "commit and-quit\r"
+expect "$USERNAME@$HOSTNAME> "
+send -- "show configuration policy-options prefix-list iq_sip-customers | match $IPADDRESS\r"
+expect "$USERNAME@$HOSTNAME> "
+send -- "exit\r"
+interact

@@ -1,0 +1,1 @@
+/home/ac67134/scripts/whitelist_scripts/whitelist_iq_sip_ipaddress.sh [YOUR CUID] [YOUR PASSWORD] [IPADDRESS] 
